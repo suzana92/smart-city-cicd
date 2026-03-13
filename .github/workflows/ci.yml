@@ -1,0 +1,47 @@
+name: Smart City CI # Name shown on the Actions tab
+
+# TRIGGER: Run this workflow on every push to any branch,
+# and also on every pull request targeting main.
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "main" ]
+
+# JOBS: Define what work to do
+jobs:
+  test:
+    # Run on GitHub's free Ubuntu virtual machine
+    runs-on: ubuntu-latest
+
+    # STRATEGY: Test against multiple Python versions
+    # This ensures the code works for everyone on the team.
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    # STEPS: Run these in order, one by one
+    steps:
+
+      # Step 1: Download your code onto the virtual machine
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Install the specific Python version
+      - name: 🐍 Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # Step 3: Show Python version (useful for debugging)
+      - name: 🔍 Verify Python version
+        run: python --version
+
+      # Step 4: Run the unit tests with verbose output
+      # -v shows each test name and pass/fail status
+      - name: 🧪 Run unit tests
+        run: python -m unittest test_smart_city.py -v
+
+      # Step 5 (optional): Show a summary message
+      - name: ✅ Tests complete
+        run: echo "All Smart City tests passed successfully!"
