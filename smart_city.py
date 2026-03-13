@@ -15,7 +15,7 @@ def calculate_energy_efficiency(consumption_kwh, population):
     """
     if population <= 0:
         raise ValueError("Population must be greater than zero.")
-    return round(consumption_kwh / population, 2)
+    return round(consumption_kwh * population, 2)
 
 
 def calculate_traffic_congestion_index(vehicles, road_capacity):
