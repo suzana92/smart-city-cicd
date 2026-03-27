@@ -1,5 +1,5 @@
 import unittest
-from smart_city import calculate_energy_efficiency, calculate_traffic_congestion_index
+from smart_city import calculate_energy_efficiency, calculate_traffic_congestion_index, calculate_air_quality_index
 
 
 class TestEnergyEfficiency(unittest.TestCase):
@@ -63,3 +63,61 @@ class TestTrafficCongestion(unittest.TestCase):
 # ── Entry point ───────────────────────────────────────────────────
 if __name__ == "__main__":
     unittest.main()
+
+  # add to existing imports
+
+
+class TestAirQualityIndex(unittest.TestCase):
+    """Tests for the calculate_air_quality_index function."""
+
+    def test_good_air_quality(self):
+        result = calculate_air_quality_index(10, 20, 15)
+        self.assertEqual(result["category"], "Good")
+        self.assertLessEqual(result["score"], 50)
+
+    def test_moderate_air_quality(self):
+        result = calculate_air_quality_index(80, 60, 50)
+        self.assertEqual(result["category"], "Moderate")
+
+    def test_returns_dict_with_correct_keys(self):
+        result = calculate_air_quality_index(10, 10, 10)
+        self.assertIn("score", result)
+        self.assertIn("category", result)
+
+    def test_negative_values_raise_error(self):
+        with self.assertRaises(ValueError):
+            calculate_air_quality_index(-5, 20, 10)
+
+    def test_zero_pollution_is_good(self):
+        result = calculate_air_quality_index(0, 0, 0)
+        self.assertEqual(result["score"], 0.0)
+        self.assertEqual(result["category"], "Good")
+
+from smart_city import calculate_air_quality_index  # add to existing imports
+
+
+class TestAirQualityIndex(unittest.TestCase):
+    """Tests for the calculate_air_quality_index function."""
+
+    def test_good_air_quality(self):
+        result = calculate_air_quality_index(10, 20, 15)
+        self.assertEqual(result["category"], "Good")
+        self.assertLessEqual(result["score"], 50)
+
+    def test_moderate_air_quality(self):
+        result = calculate_air_quality_index(80, 60, 50)
+        self.assertEqual(result["category"], "Moderate")
+
+    def test_returns_dict_with_correct_keys(self):
+        result = calculate_air_quality_index(10, 10, 10)
+        self.assertIn("score", result)
+        self.assertIn("category", result)
+
+    def test_negative_values_raise_error(self):
+        with self.assertRaises(ValueError):
+            calculate_air_quality_index(-5, 20, 10)
+
+    def test_zero_pollution_is_good(self):
+        result = calculate_air_quality_index(0, 0, 0)
+        self.assertEqual(result["score"], 0.0)
+        self.assertEqual(result["category"], "Good")

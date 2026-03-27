@@ -38,13 +38,36 @@ def calculate_traffic_congestion_index(vehicles, road_capacity):
     return round(vehicles / road_capacity, 2)
 
 
-# ── Quick manual check (remove before submission) ─────────────────
+def calculate_air_quality_index(pm25, pm10, no2):
+    """
+    Calculate air quality index based on pollution values.
+    """
+    if any(v < 0 for v in [pm25, pm10, no2]):
+        raise ValueError("Pollution values cannot be negative.")
+
+    score = round((pm25 * 0.5) + (pm10 * 0.3) + (no2 * 0.2), 1)
+
+    if score <= 50:
+        category = "Good"
+    elif score <= 100:
+        category = "Moderate"
+    elif score <= 150:
+        category = "Unhealthy for Sensitive Groups"
+    else:
+        category = "Unhealthy"
+
+    return {"score": score, "category": category}
+
+
 if __name__ == "__main__":
     energy = calculate_energy_efficiency(50000, 1000)
     print(f"Energy per capita: {energy} kWh/person")  # Expected: 50.0
 
     traffic = calculate_traffic_congestion_index(800, 1000)
-    print(f"Congestion index: {traffic}")  # Expected: 0.8 (not congested)
+    print(f"Congestion index: {traffic}")  # Expected: 0.8
 
     gridlock = calculate_traffic_congestion_index(1200, 1000)
-    print(f"Gridlock scenario: {gridlock}")  # Expected: 1.2 (over capacity!)
+    print(f"Gridlock scenario: {gridlock}")  # Expected: 1.2
+
+    air = calculate_air_quality_index(40, 30, 20)
+    print(f"Air quality: {air}")
