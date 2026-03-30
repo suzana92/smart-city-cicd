@@ -1,23 +1,34 @@
-steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
+name: Smart City CI
 
-      - name: 🐍 Set up Python ${{ matrix.python-version }}
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-
-      - name: 📦 Install test tools
+      
+      - name: Install test tools
         run: pip install xmlrunner
-
-      - name: 🧪 Run unit tests with XML report
+      
+      - name: Run unit tests with XML report
         run: |
           python -m xmlrunner discover -s . -p "test_*.py" \
             --output-file test-results.xml
-
-      - name: 📊 Upload test results
+      
+      - name: Upload test results
         uses: actions/upload-artifact@v4
-        if: always()  # Upload even if tests fail
+        if: always()
         with:
           name: test-results-py${{ matrix.python-version }}
           path: test-results.xml
