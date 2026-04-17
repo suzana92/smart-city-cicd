@@ -295,7 +295,7 @@ print(calculate_air_quality_index(10, 20, 15))
 | **Subject** | Artificial Intelligence, Cloud Computing and DevOps |
 | **Project Type** | Automated Testing & CI/CD Pipeline |
 | **Tools Used** | Python, unittest, GitHub Actions |
-| **Theme** | Smart City CI/CD Pipeline Automation |
+| **Theme** | AI-Enhanced CI/CD for Smart City Software |
 ---
 
 ## 👤 Author
@@ -303,7 +303,7 @@ print(calculate_air_quality_index(10, 20, 15))
 **Suzana Sehanaz**  
 BCA (AI, Cloud Computing & DevOps) with IBM & TCS — VI Semester  
 Yenepoya Deemed to be University  
-GitHub: 
+GitHub: https://github.com/suzana92
 
 ---
 
