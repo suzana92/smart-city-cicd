@@ -1,6 +1,7 @@
 import os
 import requests
 import sys
+import json
 
 def analyze_failure(test_output):
     """Send test failure to Gemini AI and get explanation."""
@@ -21,18 +22,36 @@ Explain in clear simple language:
 2. Exactly how to fix it?
 3. What impact does this bug have on the Smart City system?
 
-Be specific. Reference the actual values and function names from the output."""
+Be specific. Reference the actual values and function names."""
 
     try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key={gemini_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={gemini_key}"
         
-        response = requests.post(url, json={
+        payload = {
             "contents": [{
                 "parts": [{"text": prompt}]
             }]
-        })
+        }
         
+        response = requests.post(
+            url,
+            json=payload,
+            headers={"Content-Type": "application/json"},
+            timeout=30
+        )
+        
+        print(f"API Status: {response.status_code}")
+        
+        if response.status_code != 200:
+            print(f"API Error: {response.text}")
+            return
+            
         result = response.json()
+        
+        if "candidates" not in result:
+            print(f"Unexpected response: {json.dumps(result, indent=2)}")
+            return
+            
         ai_analysis = result["candidates"][0]["content"]["parts"][0]["text"]
         
         print("\n" + "="*60)
@@ -46,5 +65,7 @@ Be specific. Reference the actual values and function names from the output."""
 
 if __name__ == "__main__":
     test_output = sys.stdin.read()
-    if test_output:
+    if test_output.strip():
         analyze_failure(test_output)
+    else:
+        print("No test output received")
