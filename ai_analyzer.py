@@ -25,7 +25,7 @@ Explain in clear simple language:
 Be specific. Reference the actual values and function names."""
 
     try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={gemini_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_key}"
         
         payload = {
             "contents": [{
