@@ -195,7 +195,7 @@ Any failure → ❌ red status + developer notified
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/shuhaibabdulla/smart-city-cicd.git
+git clone https://github.com/suzana92/smart-city-cicd.git
 cd smart-city-cicd
 
 # 2. Run all tests with verbose output
