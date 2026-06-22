@@ -1,4 +1,4 @@
-# 🏙️ Smart City CI/CD Pipeline
+# 🏙️ AI-Enhanced Smart City CI/CD Pipeline
 
 > **Automated testing & Continuous Integration for Smart City metric calculations.**  
 > Every push triggers a GitHub Actions pipeline that runs 15 unit tests across Python 3.10, 3.11, and 3.12 — catching bugs before they reach production.
@@ -284,31 +284,11 @@ print(calculate_air_quality_index(10, 20, 15))
 # Output: {'score': 14.0, 'category': 'Good'}
 ```
 
-## 📋 Academic Context
-
-| Detail | Info |
-|---|---|
-| **University** | Yenepoya Deemed to be University |
-| **Program** | BCA (AI, Cloud Computing & DevOps) with IBM & TCS |
-| **Semester** | VI Semester — Third Year |
-| **Academic Year** | 2025–2026 |
-| **Subject** | Artificial Intelligence, Cloud Computing and DevOps |
-| **Project Type** | Automated Testing & CI/CD Pipeline |
-| **Tools Used** | Python, unittest, GitHub Actions |
-| **Theme** | AI-Enhanced CI/CD for Smart City Software |
 ---
 
 ## 👤 Author
 
 **Suzana Sehanaz**  
-BCA (AI, Cloud Computing & DevOps) with IBM & TCS — VI Semester  
-Yenepoya Deemed to be University  
 GitHub: https://github.com/suzana92
-
----
-
-## 📄 License
-
-This project is submitted for academic purposes at Yenepoya Deemed to be University. All Smart City metrics and data used are simulated and do not represent any real city infrastructure or live sensor data.
 
 ---
