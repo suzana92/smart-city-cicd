@@ -24,13 +24,12 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run unit tests
-        run: |
-          python -m unittest test_smart_city.py -v 2>&1 | tee test_output.txt
-          TEST_EXIT=${PIPESTATUS[0]}
-          if [ $TEST_EXIT -ne 0 ]; then
-            echo "Tests failed. Running AI analysis..."
-            cat test_output.txt | python ai_analyzer.py
-          fi
-          exit $TEST_EXIT
+        run: python -m unittest test_smart_city.py -v 2>&1 | tee test_output.txt; exit ${PIPESTATUS[0]}
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: AI Analysis of failures
+        if: failure()
+        run: cat test_output.txt | python ai_analyzer.py
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
