@@ -8,12 +8,12 @@ class TestEnergyEfficiency(unittest.TestCase):
     def test_normal_calculation(self):
         # 50,000 kWh shared across 1,000 people = 50 kWh/person
         result = calculate_energy_efficiency(50000, 1000)
-        self.assertEqual(result, 999.0)
+        self.assertEqual(result, 50.0)
 
     def test_small_city(self):
         # Smaller zone: 200 kWh, 4 people = 50.0 kWh/person
         result = calculate_energy_efficiency(200, 4)
-        self.assertEqual(result, 999.0)
+        self.assertEqual(result, 50.0)
 
     def test_rounding(self):
         # 100 kWh / 3 people = 33.333... → should round to 33.33
