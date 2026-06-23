@@ -24,32 +24,18 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run unit tests
+        id: run_tests
         run: |
           python -m unittest test_smart_city.py -v 2>&1 | tee test_output.txt
           exit ${PIPESTATUS[0]}
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-
-      - name: Wait before AI call
-        run: |
-          if [ "${{ matrix.python-version }}" = "3.10" ]; then
-            sleep 0
-          elif [ "${{ matrix.python-version }}" = "3.11" ]; then
-            sleep 35
-          else
-            sleep 70
-          fi
-
-      - name: AI Analysis of failures
-        if: failure()
         continue-on-error: true
+
+      - name: AI Analysis of test failures
+        if: steps.run_tests.outcome == 'failure'
         run: cat test_output.txt | python ai_analyzer.py
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 
-      - name: AI Code Quality Review
-        if: success()
-        continue-on-error: true
-        run: cat smart_city.py | python ai_analyzer.py
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      - name: Fail job if tests failed
+        if: steps.run_tests.outcome == 'failure'
+        run: exit 1
